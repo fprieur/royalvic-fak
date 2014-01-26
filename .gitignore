@@ -4,3 +4,5 @@ local/
 include/
 local/
 lib/
+.anvil/
+*.swp

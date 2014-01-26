@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <title>Royal Vic Fisrt Aid Kit{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='ico/favicon.ico') }}">
+    {% endblock %}
+</head>
+    
+<body>
+{% block navbar %}
+    <div class="navbar navbar-static-top navbar-default">
+        <div class="container">
+         <button class="navbar-toggle">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="/">Royal Vic Fist Aid Kit</a>
+            <div class="nav-collapse">
+                {% block navbar_right %}
+                <ul class="nav navbar-nav pull-right">
+                    <li>Homepage</li>
+                    <li>Projects</li>
+                    <li>About</li>
+                    <li>Contact</li>
+                </ul>
+                {% endblock %}
+            </div><!--/.nav-collapse --> 
+        </div><!-- /.container -->
+    </div><!-- /.navbar navbar-static-top navbar-default -->
+{% endblock %}
+<div class="container page">
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <hr>
+    {% block footer %}
+    <footer class="footer">
+        <p>&copy; Royal Vic First Aid Kit</p>
+    </footer>
+    {% endblock %}
+</div><!-- /.container page -->
+
+{% block js_footer %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+{% endblock %}
+  
+</body>
+</html>
+
