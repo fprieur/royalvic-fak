@@ -19,7 +19,7 @@ def home():
 @app.route("/projects")
 def projects():
     """projects return projects page."""
-    return "Projects"
+    return render_template("projects.html")
 
 
 @app.route("/about")
