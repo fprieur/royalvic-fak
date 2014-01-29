@@ -6,7 +6,7 @@ import datetime
 from flask import Flask, render_template
 from flask_peewee.db import Database
 from flask_peewee.auth import Auth
-from flask_peewee.admin import Admin
+from flask_peewee.admin import Admin, ModelAdmin
 from peewee import *
 
 # configure our database
@@ -32,9 +32,11 @@ class Note(db.Model):
     created = DateTimeField(default=datetime.datetime.now)
 
 
+class NoteAdmin(ModelAdmin):
+    columns = ('message', 'created')
 
 admin = Admin(app, auth)
-admin.register(Note)
+admin.register(Note, NoteAdmin)
 
 admin.setup()
 
