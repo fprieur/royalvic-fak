@@ -6,7 +6,3 @@ install:
     - pip install -r requirements.txt
 
 script: true
-# whitelist
-branches:
-    only:
-        - master
