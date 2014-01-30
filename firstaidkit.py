@@ -27,22 +27,23 @@ db = Database(app)
 # create an Auth object for use with our flask app and database wrapper
 auth = Auth(app, db)
 
-class Note(db.Model):
-    message = TextField()
-    created = DateTimeField(default=datetime.datetime.now)
+class Person(db.Model):
+    lastname = CharField()
+    firstname = CharField()
+    title = CharField()
 
 
-class NoteAdmin(ModelAdmin):
-    columns = ('message', 'created')
+class PersonAdmin(ModelAdmin):
+    columns = ('lastname', 'firstname', 'title')
 
 admin = Admin(app, auth)
-admin.register(Note, NoteAdmin)
+admin.register(Person, PersonAdmin)
 
 admin.setup()
 
 # create tables
 auth.User.create_table(fail_silently=True)
-Note.create_table(fail_silently=True)
+Person.create_table(fail_silently=True)
 
 @app.route("/")
 def home():
