@@ -6,3 +6,4 @@ local/
 lib/
 .anvil/
 *.swp
+.coveralls.yml
