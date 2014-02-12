@@ -4,6 +4,7 @@ python:
 # command to install dependencies
 install:
     - pip install -r requirements.txt
+    - pip install coverage coveralls
 script: true
 # whitelist
 branches:
