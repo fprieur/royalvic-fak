@@ -1,16 +1,20 @@
 language: python
 python:
-    - "2.7"
-# command to install dependencies
+- '2.7'
 install:
-    - pip install -r requirements.txt
-    - pip install coverage coveralls
+- pip install -r requirements.txt
+- pip install coverage coveralls
 script: true
-# whitelist
 branches:
-    only:
-        - master
-        - develop
-
-after_success: 
-    - coveralls
+  only:
+  - master
+  - develop
+after_success:
+- coveralls
+deploy:
+  provider: heroku
+  api_key:
+    secure: Uh0k/Ttm0uuaQJs+bAHwFXdIN1oqq0bIcHrAFpLYcx22VSBOUIHgvjqh/K1qIedovRc4ia5Evmejrrg7injg+FiUSoZnC8yKlCwG8lU+vxozP/Y3RWDGFz3JuHmzxpmQhvDXduP6bBrzQW3OJzGRJlNJsF2a6CrbY91vBV+yHsE=
+  app: quiet-mesa-6998
+  on:
+    repo: fprieur/royalvic-fak
