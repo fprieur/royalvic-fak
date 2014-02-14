@@ -76,16 +76,24 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/projectsv1")
-def projectsv1():
+@app.route("/projects")
+def projects():
     """projects return projects page."""
-    return render_template("projectsv1.html")
-
-
-@app.route("/projectsv2")
-def projectsv2():
-    """projects return projects page."""
-    return render_template("projectsv2.html")
+    projects = []
+    for p in Project.select():
+        # calculate percent funded to date
+        #percentFundedToDate = 0
+        #if int(p.amountFunded) > 0 and int(p.amountGoal) != 0:
+        #    percentFundedToDate = (int(p.amountFunded) / int(p.amountGoal)) * 100
+        projects.append({
+            "title": p.title,
+            "name": p.name,
+            "description": p.description,
+            "amountGoal": p.amountGoal,
+            "amountFunded": p.amountFunded,
+            "thumbnail": p.thumbnail,
+        })
+    return render_template("projects.html", projects=projects)
 
 
 @app.route("/about")
