@@ -33,8 +33,8 @@ s.save()
 
 # create project records
 Project.create_table(fail_silently=True)
-p = Project.create(title="RINGETTE Gives Back Charity Game: Sharon Rothwell",
-                   name="Ringette",
+p = Project.create(title="Portable dopplers",
+                   name="Portable dopplers",
                    person = 1,
                    section = 1,
                    description="The ringette is a beautiful thing for fundraising",
