@@ -34,6 +34,8 @@ class Person(db.Model):
     firstname = CharField()
     title = CharField()
 
+    def __unicode__(self):
+        return self.title + ' ' + self.firstname + ' ' + self.lastname
 
 class PersonAdmin(ModelAdmin):
     columns = ('lastname', 'firstname', 'title')
@@ -51,16 +53,36 @@ class About(db.Model):
 
 admin.register(About)
 
+class Section(db.Model):
+    title = CharField()
+    description = TextField()
+
+    def __unicode__(self):
+        return self.title
+
+
+class SectionAdmin(ModelAdmin):
+    columns = ('title', 'description')
+
+admin.register(Section, SectionAdmin)
 
 class Project(db.Model):
     title = CharField()
     name = CharField()
+    person = ForeignKeyField(Person)
+    section = ForeignKeyField(Section)
     description = TextField()
     amountGoal = CharField()
     amountFunded = CharField()
     thumbnail = CharField()
 
-admin.register(Project)
+    def __unicode__(self):
+        return '%s: ' % (self.section)
+
+class ProjectAdmin(ModelAdmin):
+    columns = ('title', 'section', 'amountGoal', 'amountFunded')
+
+admin.register(Project, ProjectAdmin)
 
 admin.setup()
 
@@ -68,6 +90,7 @@ admin.setup()
 auth.User.create_table(fail_silently=True)
 Person.create_table(fail_silently=True)
 About.create_table(fail_silently=True)
+Section.create_table(fail_silently=True)
 Project.create_table(fail_silently=True)
 
 @app.route("/")

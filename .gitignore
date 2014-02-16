@@ -7,3 +7,4 @@ lib/
 .anvil/
 *.swp
 .coveralls.yml
+.ropeproject/
