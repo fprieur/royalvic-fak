@@ -26,7 +26,7 @@ db = Database(app)
 
 # create an Auth object for use with our flask app and database wrapper
 auth = Auth(app, db)
-admin = Admin(app, auth)
+admin = Admin(app, auth, branding="Admin - RoyalVic First Aid Kit")
 
 
 class Person(db.Model):
