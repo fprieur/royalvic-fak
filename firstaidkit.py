@@ -119,6 +119,26 @@ def projects():
     return render_template("projects.html", projects=projects)
 
 
+@app.route("/projects/<section>")
+def projects_by_section(section):
+    section_id = 0
+    for s in Section.select():
+        if s.title.lower() == section:
+            section_id = s.id
+    result = Project.select().where(Project.section == section_id)
+    projects = []
+    for p in result:
+        projects.append({
+            "title": p.title,
+            "name": p.name,
+            "description": p.description,
+            "amountGoal": p.amountGoal,
+            "amountFunded": p.amountFunded,
+            "section": p.section,
+            "thumbnail": p.thumbnail,
+        })
+    return render_template("projectsBySection.html", projects=projects)
+
 @app.route("/about")
 def about():
     """about return the about page."""
