@@ -8,3 +8,4 @@ lib/
 *.swp
 .coveralls.yml
 .ropeproject/
+.DS_Store
