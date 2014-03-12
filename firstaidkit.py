@@ -10,9 +10,15 @@ from flask_peewee.admin import Admin, ModelAdmin
 from peewee import *
 
 # configure our database
-DATABASE = {
-        'name': 'firstaidkit.db',
-        'engine': 'peewee.SqliteDatabase',
+DATABASES = {
+      'default': {
+              'ENGINE': 'django.db.backends.postgresql_psycopg2',
+              'NAME': 'd8t86dcvos3s5m',
+              'HOST': 'ec2-23-21-170-57.compute-1.amazonaws.com',
+              'PORT': 5432,
+              'USER': 'zfwhcfwipnfyrx',
+              'PASSWORD': 'pvE27NW2AEGAech-motmk8RXXD'
+            }
 }
 DEBUG = True
 SECRET_KEY = 'ssshhhh'
