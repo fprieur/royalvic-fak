@@ -1,13 +1,5 @@
-.home_square_ul img {
-    position: absolute;
-    left: 0;
-    -webkit-transition: opacity 1s ease;
-    -moz-transition: opacity 1s ease;
-    -o-transition: opacity 1s ease;
-    transition: opacity 1s ease;
-}
-
-.home_square_ul img.top:hover{
-    opacity:0;
+ .royalvictitle{
+    font-family: 'Varela Round', sans-serif;
+    font-size: x-large;
 }
 

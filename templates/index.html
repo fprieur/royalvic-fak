@@ -2,14 +2,19 @@
 {% block title %} - Home{% endblock %}
 {% block content %}
     <div class="row">
-        <div class="home_square_ul col-md-3 col-md-offset-3">
-            <img class="bottom" src="http://placehold.it/292x200">
-            <img class="top" src="http://placehold.it/292x200/E8117F/000000">
+        <div class="home_square_ul col-md-3 col-md-offset-2">
+            <a href="/projects/innovate"><img src="{{ url_for('static', filename='images/Innovate-350x185.jpg') }}" onmouseover="this.src='{{ url_for('static', filename='images/Innovate.jpg') }}'" onmouseout="this.src='{{ url_for('static', filename='images/Innovate-350x185.jpg') }}'"></a>
         </div>
-        <div class="home_square_br col-md-3" ><img src="http://placehold.it/292x200"></div>
+        <div class="home_square_br col-md-3 col-md-offset-1" >
+            <a href="/projects/explore"><img src="{{ url_for('static', filename='images/Explore-350x185.jpg') }}" onmouseover="this.src='{{ url_for('static', filename='images/Explore.jpg') }}'" onmouseout="this.src='{{ url_for('static', filename='images/Explore-350x185.jpg') }}'"></a>
+         </div>
     </div>
     <div class="row">
-        <div class="home_square_ul col-md-3 col-md-offset-3"><img src="http://placehold.it/292x200"></div>
-        <div class="home_square_ur col-md-3" ><img src="http://placehold.it/292x200"></div>
+        <div class="home_square_ul col-md-3 col-md-offset-2">
+            <a href="/projects/inspire"><img src="{{ url_for('static', filename='images/Inspire-350x185.jpg') }}" onmouseover="this.src='{{ url_for('static', filename='images/Inspire.jpg') }}'" onmouseout="this.src='{{ url_for('static', filename='images/Inspire-350x185.jpg') }}'"></a> 
+        </div>
+        <div class="home_square_ur col-md-3 col-md-offset-1" >
+            <a href="/projects/care"><img src="{{ url_for('static', filename='images/Care-350x185.jpg') }}" onmouseover="this.src='{{ url_for('static', filename='images/Care.jpg') }}'" onmouseout="this.src='{{ url_for('static', filename='images/Care-350x185.jpg') }}'"></a>
+        </div>
     </div>  
 {% endblock %}
