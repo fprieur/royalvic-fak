@@ -11,8 +11,8 @@ from peewee import *
 
 # configure our database
 DATABASE = {
-        'name': 'firstaidkit.db',
-        'engine': 'peewee.SqliteDatabase',
+            'name': 'firstaidkit.db',
+            'engine': 'peewee.SqliteDatabase',
 }
 DEBUG = True
 SECRET_KEY = 'ssshhhh'
