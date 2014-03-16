@@ -4,94 +4,117 @@
 import os
 import datetime
 from flask import Flask, render_template
-from flask_peewee.db import Database
-from flask_peewee.auth import Auth
-from flask_peewee.admin import Admin, ModelAdmin
-from peewee import *
+#from flask_peewee.db import Database
+#from flask_peewee.auth import Auth
+#from flask_peewee.admin import Admin, ModelAdmin
+#from peewee import *
+from flask.ext.sqlalchemy import SQLAlchemy
 
-# configure our database
-DATABASE = {
-            'name': 'firstaidkit.db',
-            'engine': 'peewee.SqliteDatabase',
-}
 DEBUG = True
 SECRET_KEY = 'ssshhhh'
 
 app = Flask(__name__)
 
-app.config.from_object(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/firstaidkit'
 
 # instantiate the db wrapper
-db = Database(app)
+db = SQLAlchemy(app)
 
 # create an Auth object for use with our flask app and database wrapper
-auth = Auth(app, db)
-admin = Admin(app, auth, branding="Admin - RoyalVic First Aid Kit")
+#auth = Auth(app, db)
+#admin = Admin(app, auth, branding="Admin - RoyalVic First Aid Kit")
 
 
 class Person(db.Model):
-    lastname = CharField()
-    firstname = CharField()
-    title = CharField()
+    id = db.Column(db.Integer, primary_key=True)
+    lastname = db.Column(db.String(80))
+    firstname = db.Column(db.String(80))
+    title = db.Column(db.String(80))
+
+    def __init__(self, lastname, firstname, title):
+        self.lastname = lastname
+        self.firstname = firstname
+        self.title = title
 
     def __unicode__(self):
         return self.title + ' ' + self.firstname + ' ' + self.lastname
 
-class PersonAdmin(ModelAdmin):
-    columns = ('lastname', 'firstname', 'title')
+#class PersonAdmin(ModelAdmin):
+#    columns = ('lastname', 'firstname', 'title')
 
-admin.register(Person, PersonAdmin)
+#admin.register(Person, PersonAdmin)
 
-class About(db.Model):
-    bigTitleContent = CharField()
-    howDoesItWorkTitle = CharField()
-    howDoesItWorkContent = TextField()
-    ourMissionTitle = CharField()
-    ourMissionContent = TextField()
-    otherQuestionTitle = CharField()
-    otherQuestionContent = TextField()
+#class About(db.Model):
+#    bigTitleContent = db.Column(db.String(80))
+#    howDoesItWorkTitle = db.Column(db.String(80))
+#    howDoesItWorkContent = db.Column(db.String(120))
+#    ourMissionTitle = db.Column(db.String(80))
+#    ourMissionContent = db.Column(db.String(120))
+#    otherQuestionTitle = db.Column(db.String(80))
+#    otherQuestionContent = db.Column(db.String(120))
 
-admin.register(About)
+#admin.register(About)
 
 class Section(db.Model):
-    title = CharField()
-    description = TextField()
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80))
+    description = db.Column(db.String(120))
 
     def __unicode__(self):
         return self.title
 
 
-class SectionAdmin(ModelAdmin):
-    columns = ('title', 'description')
+#class SectionAdmin(ModelAdmin):
+#    columns = ('title', 'description')
 
-admin.register(Section, SectionAdmin)
+#admin.register(Section, SectionAdmin)
 
 class Project(db.Model):
-    title = CharField()
-    name = CharField()
-    person = ForeignKeyField(Person)
-    section = ForeignKeyField(Section)
-    description = TextField()
-    amountGoal = CharField()
-    amountFunded = CharField()
-    thumbnail = CharField()
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80))
+    name = db.Column(db.String(80))
+    #person_id = db.Column(db.Integer, db.ForeignKey('person.id'))
+    #person = db.relationship('Person', backref=db.backref('projects', lazy='dynamic'))
+    description = db.Column(db.String(120))
+    amountGoal = db.Column(db.Integer)
+    amountFunded = db.Column(db.Integer)
+    thumbnail = db.Column(db.String(80))
+
+    def __init__(self, title, name, description, amountGoal, amountFunded, thumbnail):
+        self.title = title
+        self.name = name
+        #self.person = person
+        self.description = description
+        self.amountGoal = amountGoal
+        self.amountFunded = amountFunded
+        self.thumbnail = thumbnail
 
     def __unicode__(self):
-        return '%s: ' % (self.section)
+        return self.title
 
-class ProjectAdmin(ModelAdmin):
-    columns = ('title', 'section', 'amountGoal', 'amountFunded')
+#   def __unicode__(self):
+#        return '%s: ' % (self.section)
 
-admin.register(Project, ProjectAdmin)
+#class ProjectAdmin(ModelAdmin):
+#    columns = ('title', 'section', 'amountGoal', 'amountFunded')
 
-admin.setup()
+#admin.register(Project, ProjectAdmin)
+
+#admin.setup()
 
 # create tables
-auth.User.create_table(fail_silently=True)
-Person.create_table(fail_silently=True)
-About.create_table(fail_silently=True)
-Section.create_table(fail_silently=True)
-Project.create_table(fail_silently=True)
+#auth.User.create_table(fail_silently=True)
+#Person.create_table(fail_silently=True)
+#About.create_table(fail_silently=True)
+#Section.create_table(fail_silently=True)
+#Project.create_table(fail_silently=True)
+
+db.create_all()
+fred = Person('Prieur', 'Fred', 'mr')
+project = Project('Marche avec postgres', 'postgres', 'allo', 300, 100, 'http://placehold.it/300x200')
+db.session.add(fred)
+db.session.add(project)
+db.session.commit()
 
 @app.route("/")
 def home():
