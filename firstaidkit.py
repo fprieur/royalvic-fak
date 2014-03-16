@@ -60,6 +60,10 @@ class Section(db.Model):
     title = db.Column(db.String(80))
     description = db.Column(db.String(120))
 
+    def __init__(self, title, description):
+        self.title = title
+        self.description = description
+
     def __unicode__(self):
         return self.title
 
@@ -73,17 +77,20 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80))
     name = db.Column(db.String(80))
-    #person_id = db.Column(db.Integer, db.ForeignKey('person.id'))
-    #person = db.relationship('Person', backref=db.backref('projects', lazy='dynamic'))
+    person_id = db.Column(db.Integer, db.ForeignKey('person.id'))
+    person = db.relationship('Person', backref=db.backref('projects', lazy='dynamic'))
+    section_id = db.Column(db.Integer, db.ForeignKey('section.id'))
+    section = db.relationship('Section', backref=db.backref('section', lazy='dynamic'))
     description = db.Column(db.String(120))
     amountGoal = db.Column(db.Integer)
     amountFunded = db.Column(db.Integer)
     thumbnail = db.Column(db.String(80))
 
-    def __init__(self, title, name, description, amountGoal, amountFunded, thumbnail):
+    def __init__(self, title, name,person, section, description, amountGoal, amountFunded, thumbnail):
         self.title = title
         self.name = name
-        #self.person = person
+        self.person = person
+        self.section = section
         self.description = description
         self.amountGoal = amountGoal
         self.amountFunded = amountFunded
@@ -110,9 +117,19 @@ class Project(db.Model):
 #Project.create_table(fail_silently=True)
 
 db.create_all()
+
 fred = Person('Prieur', 'Fred', 'mr')
-project = Project('Marche avec postgres', 'postgres', 'allo', 300, 100, 'http://placehold.it/300x200')
+innovate = Section('innovate', 'innovate')
+project = Project('Marche avec postgres', 'postgres', fred, innovate, 'allo', 300, 100, 'http://placehold.it/300x200')
 db.session.add(fred)
+db.session.add(project)
+db.session.commit()
+
+monsieur = Person('Prieur', 'monsieur', 'mr')
+explore = Section('explore', 'explore')
+p = Project('Marche avec postgre explores', 'explore', monsieur, explore, 'bonjour', 300, 100, 'http://placehold.it/300x200')
+db.session.add(monsieur)
+db.session.add(explore)
 db.session.add(project)
 db.session.commit()
 
@@ -126,7 +143,7 @@ def home():
 def projects():
     """projects return projects page."""
     projects = []
-    for p in Project.select():
+    for p in Project.query.all():
         # calculate percent funded to date
         #percentFundedToDate = 0
         #if int(p.amountFunded) > 0 and int(p.amountGoal) != 0:
@@ -144,11 +161,11 @@ def projects():
 
 @app.route("/projects/<section>")
 def projects_by_section(section):
-    section_id = 0
-    for s in Section.select():
+    id = 0
+    for s in Section.query.all():
         if s.title.lower() == section:
-            section_id = s.id
-    result = Project.select().where(Project.section == section_id)
+            id = s.id
+    result = Project.query.filter_by(section_id = id).all()
     projects = []
     for p in result:
         projects.append({
