@@ -8,22 +8,24 @@ from flask import Flask, render_template
 #from flask_peewee.auth import Auth
 #from flask_peewee.admin import Admin, ModelAdmin
 #from peewee import *
+from flask.ext.admin import Admin
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.admin.contrib.sqla import ModelView
 
-DEBUG = True
 SECRET_KEY = 'ssshhhh'
 
 app = Flask(__name__)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/firstaidkit'
-
+app.config['DEBUG'] = True
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/firstaidkit'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zfwhcfwipnfyrx:pvE27NW2AEGAech-motmk8RXXD@ec2-23-21-170-57.compute-1.amazonaws.com:5432/d8t86dcvos3s5m'
+app.config['SQLALCHEMY_ECHO'] = True
 # instantiate the db wrapper
 db = SQLAlchemy(app)
 
 # create an Auth object for use with our flask app and database wrapper
 #auth = Auth(app, db)
 #admin = Admin(app, auth, branding="Admin - RoyalVic First Aid Kit")
-
+admin = Admin(app, name="Admin - RoyalVic First Aid Kit")
 
 class Person(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -31,18 +33,11 @@ class Person(db.Model):
     firstname = db.Column(db.String(80))
     title = db.Column(db.String(80))
 
-    def __init__(self, lastname, firstname, title):
-        self.lastname = lastname
-        self.firstname = firstname
-        self.title = title
-
     def __unicode__(self):
         return self.title + ' ' + self.firstname + ' ' + self.lastname
 
-#class PersonAdmin(ModelAdmin):
-#    columns = ('lastname', 'firstname', 'title')
 
-#admin.register(Person, PersonAdmin)
+admin.add_view(ModelView(Person, db.session))
 
 #class About(db.Model):
 #    bigTitleContent = db.Column(db.String(80))
@@ -60,18 +55,13 @@ class Section(db.Model):
     title = db.Column(db.String(80))
     description = db.Column(db.String(120))
 
-    def __init__(self, title, description):
-        self.title = title
-        self.description = description
-
     def __unicode__(self):
         return self.title
 
 
+admin.add_view(ModelView(Section, db.session))
 #class SectionAdmin(ModelAdmin):
 #    columns = ('title', 'description')
-
-#admin.register(Section, SectionAdmin)
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -81,20 +71,10 @@ class Project(db.Model):
     person = db.relationship('Person', backref=db.backref('projects', lazy='dynamic'))
     section_id = db.Column(db.Integer, db.ForeignKey('section.id'))
     section = db.relationship('Section', backref=db.backref('section', lazy='dynamic'))
-    description = db.Column(db.String(120))
+    description = db.Column(db.Text)
     amountGoal = db.Column(db.Integer)
     amountFunded = db.Column(db.Integer)
-    thumbnail = db.Column(db.String(80))
-
-    def __init__(self, title, name,person, section, description, amountGoal, amountFunded, thumbnail):
-        self.title = title
-        self.name = name
-        self.person = person
-        self.section = section
-        self.description = description
-        self.amountGoal = amountGoal
-        self.amountFunded = amountFunded
-        self.thumbnail = thumbnail
+    thumbnail = db.Column(db.String(255))
 
     def __unicode__(self):
         return self.title
@@ -102,36 +82,9 @@ class Project(db.Model):
 #   def __unicode__(self):
 #        return '%s: ' % (self.section)
 
-#class ProjectAdmin(ModelAdmin):
-#    columns = ('title', 'section', 'amountGoal', 'amountFunded')
-
-#admin.register(Project, ProjectAdmin)
-
-#admin.setup()
-
-# create tables
-#auth.User.create_table(fail_silently=True)
-#Person.create_table(fail_silently=True)
-#About.create_table(fail_silently=True)
-#Section.create_table(fail_silently=True)
-#Project.create_table(fail_silently=True)
+admin.add_view(ModelView(Project, db.session))
 
 db.create_all()
-
-fred = Person('Prieur', 'Fred', 'mr')
-innovate = Section('innovate', 'innovate')
-project = Project('Marche avec postgres', 'postgres', fred, innovate, 'allo', 300, 100, 'http://placehold.it/300x200')
-db.session.add(fred)
-db.session.add(project)
-db.session.commit()
-
-monsieur = Person('Prieur', 'monsieur', 'mr')
-explore = Section('explore', 'explore')
-p = Project('Marche avec postgre explores', 'explore', monsieur, explore, 'bonjour', 300, 100, 'http://placehold.it/300x200')
-db.session.add(monsieur)
-db.session.add(explore)
-db.session.add(project)
-db.session.commit()
 
 @app.route("/")
 def home():
