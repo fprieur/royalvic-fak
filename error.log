@@ -1,0 +1,14 @@
+2014-03-16 17:43:32 [22155] [INFO] Starting gunicorn 18.0
+2014-03-16 17:43:32 [22155] [INFO] Listening at: http://127.0.0.1:8000 (22155)
+2014-03-16 17:43:32 [22155] [INFO] Using worker: sync
+2014-03-16 17:43:32 [22160] [INFO] Booting worker with pid: 22160
+2014-03-16 17:43:48 [22160] [INFO] Worker exiting (pid: 22160)
+2014-03-16 17:43:48 [22155] [INFO] Handling signal: int
+2014-03-16 17:43:48 [22155] [INFO] Shutting down: Master
+2014-03-16 17:44:02 [22200] [INFO] Starting gunicorn 18.0
+2014-03-16 17:44:02 [22200] [INFO] Listening at: http://127.0.0.1:8000 (22200)
+2014-03-16 17:44:02 [22200] [INFO] Using worker: sync
+2014-03-16 17:44:02 [22205] [INFO] Booting worker with pid: 22205
+2014-03-16 17:44:24 [22205] [INFO] Worker exiting (pid: 22205)
+2014-03-16 17:44:24 [22200] [INFO] Handling signal: int
+2014-03-16 17:44:24 [22200] [INFO] Shutting down: Master

@@ -1,0 +1,8 @@
+2014-03-16 16:04:12 [17983] [INFO] Starting gunicorn 18.0
+2014-03-16 16:04:12 [17983] [INFO] Listening at: http://127.0.0.1:8000 (17983)
+2014-03-16 16:04:12 [17983] [INFO] Using worker: sync
+2014-03-16 16:04:12 [17988] [INFO] Booting worker with pid: 17988
+2014-03-16 16:04:25 [17988] [INFO] Worker exiting (pid: 17988)
+2014-03-16 16:04:25 [17983] [INFO] Handling signal: int
+Exception KeyError: KeyError(140632224659264,) in <module 'threading' from '/usr/lib/python2.7/threading.pyc'> ignored
+2014-03-16 16:04:25 [17983] [INFO] Shutting down: Master
