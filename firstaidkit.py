@@ -84,7 +84,7 @@ class Project(db.Model):
 
 admin.add_view(ModelView(Project, db.session))
 
-db.create_all()
+#db.create_all()
 
 @app.route("/")
 def home():
