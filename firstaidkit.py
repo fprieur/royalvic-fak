@@ -115,6 +115,7 @@ def projects():
             "amountGoal": p.amountGoal,
             "amountFunded": p.amountFunded,
             "thumbnail": p.thumbnail,
+            "akaraisin_url": p.akaraisin_url,
         })
     return render_template("projects.html", projects=projects)
 
