@@ -92,7 +92,7 @@ class Project(db.Model):
 admin.add_view(ModelView(Project, db.session))
 
 #db.create_all()
-manager.run()
+#manager.run()
 @app.route("/")
 def home():
     """home return the home page."""
