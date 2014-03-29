@@ -3,9 +3,9 @@
 {% block content %}
 <div class="row">
     {% for project in projects %}
-    <div class="col-sm-6 col-md-4">
+    <div class="col-sm-6 col-md-4 fix">
         <div class="thumbnail">
-            <img src="{{ project.thumbnail }}" alt="...">
+            <img src="{{ project.thumbnail }}" alt="..." width="350" height="160">
             <br /> 
             <div class="progress">
                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: {{ (project.amountFunded|int / project.amountGoal|int) * 100 }}%">

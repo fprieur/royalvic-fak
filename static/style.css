@@ -10,4 +10,10 @@
     margin-left: 57px;
 }
 
+#equalheight {
+    overflow: hidden; 
+}
 
+.fix{
+    height: 500px;
+}
