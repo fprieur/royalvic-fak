@@ -11,6 +11,8 @@ from flask import Flask, render_template
 from flask.ext.admin import Admin
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.admin.contrib.sqla import ModelView
+from flask.ext.script import Manager
+from flask.ext.migrate import Migrate, MigrateCommand
 
 SECRET_KEY = 'ssshhhh'
 
@@ -21,6 +23,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zfwhcfwipnfyrx:pvE27NW2AEGAe
 #app.config['SQLALCHEMY_ECHO'] = True
 # instantiate the db wrapper
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 # create an Auth object for use with our flask app and database wrapper
 #auth = Auth(app, db)
@@ -75,6 +81,7 @@ class Project(db.Model):
     amountGoal = db.Column(db.Integer)
     amountFunded = db.Column(db.Integer)
     thumbnail = db.Column(db.String(255))
+    akaraisin_url = db.Column(db.String(255))
 
     def __unicode__(self):
         return self.title
@@ -85,7 +92,7 @@ class Project(db.Model):
 admin.add_view(ModelView(Project, db.session))
 
 #db.create_all()
-
+manager.run()
 @app.route("/")
 def home():
     """home return the home page."""
