@@ -119,6 +119,25 @@ def projects():
         })
     return render_template("projects.html", projects=projects)
 
+@app.route("/projectsv1")
+def projectsv1():
+    """projects return projects page."""
+    projects = []
+    for p in Project.query.all():
+        # calculate percent funded to date
+        #percentFundedToDate = 0
+        #if int(p.amountFunded) > 0 and int(p.amountGoal) != 0:
+        #    percentFundedToDate = (int(p.amountFunded) / int(p.amountGoal)) * 100
+        projects.append({
+            "title": p.title,
+            "name": p.name,
+            "description": p.description,
+            "amountGoal": p.amountGoal,
+            "amountFunded": p.amountFunded,
+            "thumbnail": p.thumbnail,
+            "akaraisin_url": p.akaraisin_url,
+        })
+    return render_template("projectsv1.html", projects=projects)
 
 @app.route("/projects/<section>")
 def projects_by_section(section):
@@ -137,6 +156,7 @@ def projects_by_section(section):
             "amountFunded": p.amountFunded,
             "section": p.section,
             "thumbnail": p.thumbnail,
+            "akaraisin_url": p.akaraisin_url,
         })
     return render_template("projectsBySection.html", projects=projects)
 
