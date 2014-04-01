@@ -9,7 +9,6 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
-import request
 
 SECRET_KEY = 'ssshhhh'
 
