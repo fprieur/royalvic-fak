@@ -4,22 +4,19 @@
 import os
 import datetime
 from flask import Flask, render_template
-#from flask_peewee.db import Database
-#from flask_peewee.auth import Auth
-#from flask_peewee.admin import Admin, ModelAdmin
-#from peewee import *
 from flask.ext.admin import Admin
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
+import request
 
 SECRET_KEY = 'ssshhhh'
 
 app = Flask(__name__)
 #app.config['DEBUG'] = True
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/firstaidkit'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zfwhcfwipnfyrx:pvE27NW2AEGAech-motmk8RXXD@ec2-23-21-170-57.compute-1.amazonaws.com:5432/d8t86dcvos3s5m'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/firstaidkit'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zfwhcfwipnfyrx:pvE27NW2AEGAech-motmk8RXXD@ec2-23-21-170-57.compute-1.amazonaws.com:5432/d8t86dcvos3s5m'
 #app.config['SQLALCHEMY_ECHO'] = True
 # instantiate the db wrapper
 db = SQLAlchemy(app)

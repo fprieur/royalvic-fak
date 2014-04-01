@@ -1,6 +1,22 @@
 {% extends "base.html" %}
 {% block title %} - Projects{% endblock %}
+{% block traduction %}
+    {% if request.path == "/projects/innovate" %}
+        <li><a href="http://trousseroyalvic.com/projets/innover/">Français</a></li>
+    {% endif %}
+    {% if request.path == "/projects/explore"%}
+        <li><a href="http://trousseroyalvic.com/projets/explorer/">Français</a></li>
+    {% endif %}
+    {% if request.path == "/projects/inspire" %}
+        <li><a href="http://trousseroyalvic.com/projets/inspirer/">Français</a></li>
+    {% endif %}
+    {% if request.path == "/projects/care" %}
+        <li><a href="http://trousseroyalvic.com/projets/soins/">Français</a></li>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
+
 <div class="row">
     {% for project in projects %}
     <div class="col-sm-6 col-md-4 fix">
