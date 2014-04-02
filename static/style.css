@@ -17,3 +17,34 @@
 .fix{
     height: 500px;
 }
+
+/* Portrait tablet to landscape and desktop */ 
+@media (min-width: 768px) and (max-width: 979px) { 
+    
+    .home_square_br{
+        margin-left:0px;
+    }
+    .home_square_ur{
+        margin-left:0px;
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+    .home_square_br{
+        margin-left:0px;
+    }
+    .home_square_ur{
+        margin-left:0px;
+    }
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+    .home_square_br{
+        margin-left:0px;
+    }
+    .home_square_ur{
+        margin-left:0px;
+    }
+}
