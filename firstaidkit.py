@@ -13,7 +13,7 @@ from flask.ext.migrate import Migrate, MigrateCommand
 SECRET_KEY = 'ssshhhh'
 
 app = Flask(__name__)
-#app.config['DEBUG'] = True
+app.config['DEBUG'] = True
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/firstaidkit'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zfwhcfwipnfyrx:pvE27NW2AEGAech-motmk8RXXD@ec2-23-21-170-57.compute-1.amazonaws.com:5432/d8t86dcvos3s5m'
 #app.config['SQLALCHEMY_ECHO'] = True
@@ -24,9 +24,6 @@ migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
-# create an Auth object for use with our flask app and database wrapper
-#auth = Auth(app, db)
-#admin = Admin(app, auth, branding="Admin - RoyalVic First Aid Kit")
 admin = Admin(app, name="Admin - RoyalVic First Aid Kit")
 
 class Person(db.Model):
@@ -41,16 +38,6 @@ class Person(db.Model):
 
 admin.add_view(ModelView(Person, db.session))
 
-#class About(db.Model):
-#    bigTitleContent = db.Column(db.String(80))
-#    howDoesItWorkTitle = db.Column(db.String(80))
-#    howDoesItWorkContent = db.Column(db.String(120))
-#    ourMissionTitle = db.Column(db.String(80))
-#    ourMissionContent = db.Column(db.String(120))
-#    otherQuestionTitle = db.Column(db.String(80))
-#    otherQuestionContent = db.Column(db.String(120))
-
-#admin.register(About)
 
 class Section(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -62,8 +49,24 @@ class Section(db.Model):
 
 
 admin.add_view(ModelView(Section, db.session))
-#class SectionAdmin(ModelAdmin):
-#    columns = ('title', 'description')
+
+
+class AboutPage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    bigTitle = db.Column(db.String(80))
+    hditwTitle = db.Column(db.String(80))
+    hdiwContent = db.Column(db.Text)
+    missionTitle = db.Column(db.String(80))
+    missionContent = db.Column(db.Text)
+    QuestionTitle = db.Column(db.String(80))
+    QuestionContent = db.Column(db.Text)
+
+    def __unicode__(self):
+        return self.bigTitle
+
+
+admin.add_view(ModelView(AboutPage, db.session))
+
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -156,11 +159,23 @@ def projects_by_section(section):
         })
     return render_template("projectsBySection.html", projects=projects)
 
+
 @app.route("/about")
 def about():
     """about return the about page."""
-    return render_template("about.html")
-
+    about = []
+    result = AboutPage.query.all()
+    for a in result:
+        about.append({
+            "bigTitle": a.bigTitle,
+            "hditwTitle": a.hditwTitle,
+            "hdiwContent": a.hdiwContent,
+            "missionTitle": a.missionTitle,
+            "missionContent": a.missionContent,
+            "QuestionTitle": a.QuestionTitle,
+            "QuestionContent": a.QuestionContent,
+        })
+    return render_template("about.html", about=about)
 
 @app.route("/donate")
 def donate():
