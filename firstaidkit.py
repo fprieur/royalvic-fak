@@ -10,10 +10,12 @@ from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 
-SECRET_KEY = 'ssshhhh'
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
+
+app.secret_key = os.urandom(24)
+
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/firstaidkit'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zfwhcfwipnfyrx:pvE27NW2AEGAech-motmk8RXXD@ec2-23-21-170-57.compute-1.amazonaws.com:5432/d8t86dcvos3s5m'
 #app.config['SQLALCHEMY_ECHO'] = True
