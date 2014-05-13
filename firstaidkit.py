@@ -10,10 +10,12 @@ from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 
-SECRET_KEY = 'ssshhhh'
 
 app = Flask(__name__)
-#app.config['DEBUG'] = True
+app.config['DEBUG'] = True
+
+app.secret_key = os.urandom(24)
+
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/firstaidkit'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zfwhcfwipnfyrx:pvE27NW2AEGAech-motmk8RXXD@ec2-23-21-170-57.compute-1.amazonaws.com:5432/d8t86dcvos3s5m'
 #app.config['SQLALCHEMY_ECHO'] = True
@@ -60,6 +62,22 @@ class Section(db.Model):
 
 admin.add_view(ModelView(Section, db.session))
 
+
+class AboutPage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    bigTitle = db.Column(db.String(80))
+    hditwTitle = db.Column(db.String(80))
+    hdiwContent = db.Column(db.Text)
+    missionTitle = db.Column(db.String(80))
+    missionContent = db.Column(db.Text)
+    QuestionTitle = db.Column(db.String(80))
+    QuestionContent = db.Column(db.Text)
+
+    def __unicode__(self):
+        return self.bigTitle
+
+
+admin.add_view(ModelView(AboutPage, db.session))
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -152,11 +170,23 @@ def projects_by_section(section):
         })
     return render_template("projectsBySection.html", projects=projects)
 
+
 @app.route("/about")
 def about():
     """about return the about page."""
-    return render_template("about.html")
-
+    about = []
+    result = AboutPage.query.all()
+    for a in result:
+        about.append({
+            "bigTitle": a.bigTitle,
+            "hditwTitle": a.hditwTitle,
+            "hdiwContent": a.hdiwContent,
+            "missionTitle": a.missionTitle,
+            "missionContent": a.missionContent,
+            "QuestionTitle": a.QuestionTitle,
+            "QuestionContent": a.QuestionContent,
+        })
+    return render_template("about.html", about=about)
 
 @app.route("/donate")
 def donate():
