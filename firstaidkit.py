@@ -24,9 +24,6 @@ migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
-# create an Auth object for use with our flask app and database wrapper
-#auth = Auth(app, db)
-#admin = Admin(app, auth, branding="Admin - RoyalVic First Aid Kit")
 admin = Admin(app, name="Admin - RoyalVic First Aid Kit")
 
 class Person(db.Model):
@@ -41,16 +38,16 @@ class Person(db.Model):
 
 admin.add_view(ModelView(Person, db.session))
 
-#class About(db.Model):
-#    bigTitleContent = db.Column(db.String(80))
-#    howDoesItWorkTitle = db.Column(db.String(80))
-#    howDoesItWorkContent = db.Column(db.String(120))
-#    ourMissionTitle = db.Column(db.String(80))
-#    ourMissionContent = db.Column(db.String(120))
-#    otherQuestionTitle = db.Column(db.String(80))
-#    otherQuestionContent = db.Column(db.String(120))
+class About(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    howDoesItWorkTitle = db.Column(db.String(80))
+    howDoesItWorkContent = db.Column(db.String(120))
+    ourMissionTitle = db.Column(db.String(80))
+    ourMissionContent = db.Column(db.String(120))
+    otherQuestionTitle = db.Column(db.String(80))
+    otherQuestionContent = db.Column(db.String(120))
 
-#admin.register(About)
+#admin.add_view(ModelView(About, db.session))
 
 class Section(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -62,8 +59,7 @@ class Section(db.Model):
 
 
 admin.add_view(ModelView(Section, db.session))
-#class SectionAdmin(ModelAdmin):
-#    columns = ('title', 'description')
+
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -87,8 +83,8 @@ class Project(db.Model):
 
 admin.add_view(ModelView(Project, db.session))
 
-#db.create_all()
-#manager.run()
+db.create_all()
+manager.run()
 @app.route("/")
 def home():
     """home return the home page."""
