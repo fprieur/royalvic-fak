@@ -16,7 +16,24 @@
 {% endblock %}
 
 {% block content %}
-
+    
+    {% if request.path == "/projects/innovate" %}
+        <h1>Innovate</h1>
+        <br />
+    {% endif %}
+    {% if request.path == "/projects/explore"%}
+        <h1>Explore</h1>
+        <br />
+    {% endif %}
+    {% if request.path == "/projects/inspire" %}
+        <h1>Inpire</h1>
+        <br />
+    {% endif %}
+    {% if request.path == "/projects/care" %}
+        <h1>Care</h1>
+        <br />
+    {% endif %}
+    
 <div class="row">
     {% for project in projects %}
     <div class="col-sm-6 col-md-4 fix">
