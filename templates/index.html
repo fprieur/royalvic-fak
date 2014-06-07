@@ -3,22 +3,21 @@
 {% block traduction %}
 <li><a href="http://trousseroyalvic.com">Français</a>
 {% endblock %}
-
 {% block content %}
     <div class="row">
         <div class="home_square_ul col-md-3 col-md-offset-2">
             <a href="/projects/innovate"><img src="{{ url_for('static', filename='images/Innovate.jpg') }}" onmouseover="this.src='{{ url_for('static', filename='images/Innovate-hover.jpg') }}'" onmouseout="this.src='{{ url_for('static', filename='images/Innovate.jpg') }}'"></a>
         </div>
         <div class="home_square_br col-md-3 col-md-offset-1" >
-            <a href="/projects/explore"><img src="{{ url_for('static', filename='images/Explore.jpg') }}" onmouseover="this.src='{{ url_for('static', filename='images/Explore-hover.jpg') }}'" onmouseout="this.src='{{ url_for('static', filename='images/Explore.jpg') }}'"></a>
+            <a href="/projects/explore"><img src="{{ url_for('static', filename='images/Explore.jpg') }}" onmouseover="this.src='{{ url_for('static', filename='images/Explore-hover.jpg') }}'" onmouseout="this.src='{{ url_for('static', filename='images/Explore.jpg') }}'" style="height: 185px;"></a>
          </div>
     </div>
     <div class="row">
         <div class="home_square_ul col-md-3 col-md-offset-2">
-            <a href="/projects/inspire"><img src="{{ url_for('static', filename='images/Inspire.jpg') }}" onmouseover="this.src='{{ url_for('static', filename='images/Inspire-hover.jpg') }}'" onmouseout="this.src='{{ url_for('static', filename='images/Inspire.jpg') }}'"></a> 
+            <a href="/projects/inspire"><img src="{{ url_for('static', filename='images/inspire.jpg') }}" onmouseover="this.src='{{ url_for('static', filename='images/inspire-hover.jpg') }}'" onmouseout="this.src='{{ url_for('static', filename='images/inspire.jpg') }}'"></a> 
         </div>
         <div class="home_square_ur col-md-3 col-md-offset-1" >
-            <a href="/projects/care"><img src="{{ url_for('static', filename='images/Care.jpg') }}" onmouseover="this.src='{{ url_for('static', filename='images/Care-hover.jpg') }}'" onmouseout="this.src='{{ url_for('static', filename='images/Care.jpg') }}'"></a>
+            <a href="/projects/care"><img src="{{ url_for('static', filename='images/Care.jpg') }}"  onmouseover="this.src='{{ url_for('static', filename='images/Care-hover.jpg') }}'" onmouseout="this.src='{{ url_for('static', filename='images/Care.jpg') }}'"></a>
         </div>
     </div>  
 {% endblock %}

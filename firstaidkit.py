@@ -40,6 +40,16 @@ class Person(db.Model):
 
 admin.add_view(ModelView(Person, db.session))
 
+class About(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    howDoesItWorkTitle = db.Column(db.String(80))
+    howDoesItWorkContent = db.Column(db.String(120))
+    ourMissionTitle = db.Column(db.String(80))
+    ourMissionContent = db.Column(db.String(120))
+    otherQuestionTitle = db.Column(db.String(80))
+    otherQuestionContent = db.Column(db.String(120))
+
+#admin.add_view(ModelView(About, db.session))
 
 class Section(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -68,7 +78,6 @@ class AboutPage(db.Model):
 
 
 admin.add_view(ModelView(AboutPage, db.session))
-
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
